@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 /*--------------------------
     EXPRESSJS
 --------------------------*
@@ -6,8 +6,12 @@
 * nmp i express dotenv
 
 /*------------------------*/
-const express = require("express")
-const app = express
+//Express Started:
+const express = require("express");
+const app = express();
+//Dotenv
+require("dotenv").config();
+const PORT = process.env.PORT || 8000;
+const HOST = process.env.HOST || "127.0.0.1";
 
-
-
+app.listen(PORT, () => {console.log(`Running: http://${HOST}:${PORT}`)});
