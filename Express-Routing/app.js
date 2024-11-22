@@ -15,12 +15,11 @@ const PORT = process.env.PORT || 8000;
 const HOST = process.env.HOST || "127.0.0.1";
 /*------------------------*/
 
-
 //!(1)
 //?HTTP METHOD(GET,POST,PUT,DELETE) & URLs('/')
 // app.get('/', (req, res)=>{
 // console.log('get atıldı')
- 
+
 //     res.send({
 //         message:'welcome to express'
 //     })
@@ -28,21 +27,21 @@ const HOST = process.env.HOST || "127.0.0.1";
 
 // app.post('/', (req, res)=>{
 //     console.log('get atıldı')
-     
+
 //         res.send({
 //             message:'run post'
 //         })
 //     })
 // app.put('/', (req, res)=>{
 //     console.log('get atıldı')
-     
+
 //         res.send({
 //             message:'run put'
 //         })
 //     })
 // app.delete('/', (req, res)=>{
 //     console.log('get atıldı')
-     
+
 //         res.send({
 //             message:'run delete'
 //         })
@@ -78,14 +77,44 @@ const HOST = process.env.HOST || "127.0.0.1";
 // app.get('/abc*123',(req,res)=>res.send('/abc*123))
 
 //?express-url supported RegExr
-// app.get(/xyz/,(req,res)=>res.send('/xyz/'))  /içerisinde yazılmalı/ 
+// app.get(/xyz/,(req,res)=>res.send('/xyz/'))  /içerisinde yazılmalı/
 // app.get(/xyz$/,(req,res)=>res.send('/xyz/'))    xyz ile biten
 // app.get(/^\/xyz/,(req,res)=>res.send('/xyz/'))    /xyz ile başlayan    (\ işaretinden sonra gelen işareti özel karakter olarak algılama kaçış karakteri demek)
 
+/*------------------------*/
+//!URL Parameters (req.params)(: ile ifade edilir (:req.params) olur)(DİNAMİK KULLANIM)
+
+// app.get("/users/:userID/profile", (req, res) => {
+//     console.log(req.params)
+//   res.send({
+//     userID: req.params.userID
+//   });
+// });
+
+
+app.get("/users/:userID/profile/update/:userData", (req, res) => {
+    console.log(req.params)
+  res.send({
+    userID: req.params.userID,
+    updating: req.params.userData,
+    url:{
+        url: {
+            protocol: req.protocol,
+            subdomains: req.subdomains,
+            hostname: req.hostname,
+            baseUrl: req.baseUrl,
+            params: req.params,
+            query: req.query,
+            path: req.path,
+            originalUrl: req.originalUrl,
+            url: req.url
+        }
+    }
+
+  });
+});
 
 
 
 
-
-
-app.listen(PORT, () => {console.log(`Running: http://${HOST}:${PORT}`)});
+app.listen(PORT, () => {console.log(`Running: http://${HOST}:${PORT}`);});
