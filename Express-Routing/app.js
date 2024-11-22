@@ -57,7 +57,7 @@ const HOST = process.env.HOST || "127.0.0.1";
 // })
 
 //!(3)
-
+//METHOD (APP.ROUTE)
 app.route('/route')
 .get((req,res)=>{res.send({message:'get'})})
 .post((req,res)=>{res.send({message:'post'})})
