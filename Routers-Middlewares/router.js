@@ -38,6 +38,7 @@ const PORT = process.env.PORT || 8000;
 // const router = require('./routes/index.js')
 // const router = require('./routes/index')
 //const router = require("./routes/"); //default dosya ismi her zaman index.js tir.
+// app.use(router)
 
 app.use(require("./routes/"));
 
