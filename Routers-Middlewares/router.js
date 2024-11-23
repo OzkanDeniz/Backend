@@ -37,8 +37,8 @@ const PORT = process.env.PORT || 8000;
 
 // const router = require('./routes/index.js')
 // const router = require('./routes/index')
-const router = require("./routes/"); //default dosya ismi her zaman index.js tir.
+//const router = require("./routes/"); //default dosya ismi her zaman index.js tir.
 
-app.use(router);
+app.use(require("./routes/"));
 
 app.listen(PORT, () => console.log("Running: http://127.0.0.1:" + PORT));
