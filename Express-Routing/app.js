@@ -156,4 +156,13 @@ const HOST = process.env.HOST || "127.0.0.1";
 
 
 
+
+app.get(['/abc','/acd'],(req,res)=>{
+
+    res.send({
+        message:'abc or acd'
+    })
+
+})
+
 app.listen(PORT, () => {console.log(`Running: http://${HOST}:${PORT}`);});
