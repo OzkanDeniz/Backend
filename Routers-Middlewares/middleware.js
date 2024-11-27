@@ -90,7 +90,8 @@ const PORT = process.env.PORT;
 const middleFunc1 = (req, res, next) => {
   console.log('middleFunc1 is run')
   req.message1 = 'middleFunc1 run'
-  next()
+  // next()
+  next('route') //bir route atlayarak sonraki route a geç
 };
 
 const middleFunc2 = (req, res, next) => {
@@ -110,6 +111,14 @@ app.get('/home',[middleFunc1,middleFunc2],(req,res)=>{
     message1: req.message1,
     message2: req.message2,
     message:'Finished'
+  })
+
+})
+app.get('/home',(req,res)=>{
+  res.send({
+    message1: req.message1,
+    message2: req.message2,
+    message:'next.Route Finished'
   })
 
 })
