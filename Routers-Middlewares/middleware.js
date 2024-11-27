@@ -1,6 +1,7 @@
 "use strict";
 
 const express = require("express");
+const { middleFunc1, middleFunc2 } = require("./middlewares");
 const app = express();
 
 require("dotenv").config();
@@ -9,7 +10,7 @@ const PORT = process.env.PORT;
 //? Middleware functions must be has three parameters
 //? Last parameters is for next()
 
-//?Middleware
+//? Middleware
 // app.get("/", (req, res, next) => {
 //   console.log("middleware started");
 
@@ -20,7 +21,7 @@ const PORT = process.env.PORT;
 // //   });
 // });
 
-//?Routh_Path
+//? Routh_Path
 // app.get("/", (req, res) => {
 //   console.log("route started");
 
@@ -52,7 +53,7 @@ const PORT = process.env.PORT;
 //   });
 // });
 
-//?Data Taşıma
+//? Data Taşıma
 // app.get("/", (req, res, next) => {
 //   req.message1 = "middleware1";
 //   next();
@@ -85,20 +86,19 @@ const PORT = process.env.PORT;
 //   });
 // });
 
+//? Middleware Func
+// const middleFunc1 = (req, res, next) => {
+//   console.log('middleFunc1 is run')
+//   req.message1 = 'middleFunc1 run'
+//   // next()
+//   next('route') //bir route atlayarak sonraki route a geç
+// };
 
-//?Middleware Func
-const middleFunc1 = (req, res, next) => {
-  console.log('middleFunc1 is run')
-  req.message1 = 'middleFunc1 run'
-  // next()
-  next('route') //bir route atlayarak sonraki route a geç
-};
-
-const middleFunc2 = (req, res, next) => {
-  console.log('middleFunc2 is run')
-  req.message2 = 'middleFunc1 run'
-  next()
-};
+// const middleFunc2 = (req, res, next) => {
+//   console.log('middleFunc2 is run')
+//   req.message2 = 'middleFunc1 run'
+//   next()
+// };
 
 //? app.use(middleFunc1,middleFunc2)
 //! app.use([middleFunc1,middleFunc2]) All methods (recommended)
@@ -106,23 +106,39 @@ const middleFunc2 = (req, res, next) => {
 
 //! Ayrıca app.use kullanmadan path routerda middleware gönderebiliriz
 
-app.get('/home',[middleFunc1,middleFunc2],(req,res)=>{
+// app.get('/home',[middleFunc1,middleFunc2],(req,res)=>{
+//   res.send({
+//     message1: req.message1,
+//     message2: req.message2,
+//     message:'Finished'
+//   })
+
+// })
+// app.get('/home',(req,res)=>{
+//   res.send({
+//     message1: req.message1,
+//     message2: req.message2,
+//     message:'next.Route Finished'
+//   })
+
+// })
+
+//? İmport
+// const middleFuncs = require('./middlewares/index')
+// app.use(middleFuncs)
+
+//? Hem array hemde object olarak alabiliriz
+// const [middleFunc1,middleFunc2] = require('./middlewares/index')
+// const {middleFunc1,middleFunc2 }= require('./middlewares/index')
+// app.use(middleFunc1,middleFunc2)
+
+
+app.get("/",middleFunc1,middleFunc2,(req, res) => {
   res.send({
     message1: req.message1,
     message2: req.message2,
-    message:'Finished'
-  })
-
-})
-app.get('/home',(req,res)=>{
-  res.send({
-    message1: req.message1,
-    message2: req.message2,
-    message:'next.Route Finished'
-  })
-
-})
-
-
+    message: "Finished",
+  });
+});
 
 app.listen(PORT, () => console.log("Running: http://127.0.0.1:" + PORT));
