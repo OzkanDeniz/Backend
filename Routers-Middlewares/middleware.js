@@ -31,7 +31,12 @@ const PORT = process.env.PORT;
 
 app.get("/", (req, res, next) => {
   if (req.query.username == "clarusway") {
+    //?req ve res ile data taşıma:
+    //next() ile req ve res bir sonraki route a aktarılır
+    req.username = "clarusway";
+    res.message = 'username is clarusway'
     next();
+
   } else {
     res.send({
       message: " Error: username is wrong",
@@ -41,7 +46,9 @@ app.get("/", (req, res, next) => {
 
 app.get("/", (req, res) => {
   res.send({
-    message: "username is true",
+    username: req.username,
+    // message: "username is true",
+    message: res.message 
   });
 });
 
