@@ -13,10 +13,12 @@ app.all("/", (req, res) => {
   res.send("WELCOME TO DO API");
 });
 /*-----------------------------------------*/
-//* SEQUELİZE
 
+//* SEQUELİZE
 const {Sequelize,DataTypes} = require('sequelize')
 
+// Connection
+const sequelize = new Sequelize('sqlite:./db.sqlite3')
 
 
 /*-----------------------------------------*/
