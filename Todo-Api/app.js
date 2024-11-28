@@ -15,11 +15,58 @@ app.all("/", (req, res) => {
 /*-----------------------------------------*/
 
 //* SEQUELİZE
-const {Sequelize,DataTypes} = require('sequelize')
+const { Sequelize, DataTypes } = require("sequelize");
 
 // Connection
-const sequelize = new Sequelize('sqlite:./db.sqlite3')
+// const sequelize = new Sequelize('sqlite:./db.sqlite3')
+// const sequelize = new Sequelize('sqlite:' + process.env.SQLITE)
+const sequelize = new Sequelize(
+  "sqlite:" + process.env.SQLITE || "./db.sqlite3"
+);
 
+//MODEL
+// Her model,veritabanında bir tabloya karşılık gelir
+// sequelize.define('tableName', {tableDetails}) bir model oluşturmak için gereken komutlar
+
+
+//Model isimleri PascalCase(Todo) yazılır
+const Todo = sequelize.define("todos", {
+
+  //* id yi otomatik olarak oluşturur
+  // id: { type: DataTypes.INTEGER,
+  //   allowNull:false, //default: true
+  //   unique:true, //default: false
+  //   comment:'description',
+  //   primaryKey:true, //default: false
+  //   autoIncrement:true //default: false
+  //  },
+
+  title:{
+    type:DataTypes.STRING,
+    allowNull:false
+  },
+
+  description: DataTypes.TEXT,
+
+  priority:{
+    type: DataTypes.STRING,
+    allowNull:false,
+    defaultValue:0
+  },
+
+  isdone:{
+    type:DataTypes.BOOLEAN,
+    allowNull:false,
+    defaultValue:false
+  },
+
+  // createdAt: {},
+  // updatedAt: {},
+  // Sequelize otomatik  yönetir
+
+
+
+});
 
 /*-----------------------------------------*/
 const errorHandler = (err, req, res, next) => {
