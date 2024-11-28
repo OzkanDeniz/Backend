@@ -31,16 +31,44 @@ const HOST = process.env.HOST;
 // })
 
 //! Try Catch
-app.get("/user/:id?", function (req, res) {
-  try {
-    req.params.id.toString()
-    res.send({ userId: 1, userName: " John" });
-  } catch (error) {
-    // throw Error('id must be string')
-    // res.status(404).send('id must be string')
-    res.status(404).send({isError:true, message :'id must be string'})
-  }
+// app.get("/user/:id?", function (req, res) {
+//   try {
+//     req.params.id.toString()
+//     res.send({ userId: 1, userName: " John" });
+//   } catch (error) {
+//     // throw Error('id must be string')
+//     // res.status(404).send('id must be string')
+//     res.status(404).send({isError:true, message :'id must be string'})
+//   }
+// });
+
+//? Middleware
+// app.get("/user/:id?", function (req, res, next) {
+//   throw Error("Hata oluştu");
+//   res.send({ useId: 1, userName: "John" });
+// });
+
+// const errorHandlerFunction = (err, req, res, next) => {
+//     res.status(400).send({ isError: true, message: err.message });
+//   };
+
+// app.use(errorHandlerFunction);
+
+
+
+//?
+app.get("/user/:id?", function (req, res, next) {
+  throw Error("Hata oluştu");
+  res.send({ useId: 1, userName: "John" });
 });
+
+
+
+
+
+
+
+
 
 
 
@@ -50,5 +78,11 @@ app.get("/user/:id?", function (req, res) {
 app.use("*", (req, res) => {
   res.status(404).send("The route is not found");
 });
+
+const errorHandlerFunction = (err, req, res, next) => {
+  res.status(400).send({ isError: true, message: err.message });
+};
+
+app.use(errorHandlerFunction);
 
 app.listen(PORT, () => console.log("Running: http://127.0.0.1" + PORT));
