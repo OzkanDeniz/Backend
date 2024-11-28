@@ -66,7 +66,12 @@ const Todo = sequelize.define("todos", {
 });
 
 //*Syncronization
-sequelize.sync()
+// sequelize.sync()
+
+// connect to DB
+sequelize.authenticate()
+.then(()=>console.log('*DB Connected'))
+.catch(()=>console.log('DB Not Connected'))
 
 
 /*-----------------------------------------*/
