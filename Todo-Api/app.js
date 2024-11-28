@@ -28,10 +28,8 @@ const sequelize = new Sequelize(
 // Her model,veritabanında bir tabloya karşılık gelir
 // sequelize.define('tableName', {tableDetails}) bir model oluşturmak için gereken komutlar
 
-
 //Model isimleri PascalCase(Todo) yazılır
 const Todo = sequelize.define("todos", {
-
   //* id yi otomatik olarak oluşturur
   // id: { type: DataTypes.INTEGER,
   //   allowNull:false, //default: true
@@ -41,32 +39,35 @@ const Todo = sequelize.define("todos", {
   //   autoIncrement:true //default: false
   //  },
 
-  title:{
-    type:DataTypes.STRING,
-    allowNull:false
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
 
   description: DataTypes.TEXT,
 
-  priority:{
+  priority: {
     type: DataTypes.STRING,
-    allowNull:false,
-    defaultValue:0
+    allowNull: false,
+    defaultValue: 0,
   },
 
-  isdone:{
-    type:DataTypes.BOOLEAN,
-    allowNull:false,
-    defaultValue:false
+  isdone: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
   },
 
   // createdAt: {},
   // updatedAt: {},
   // Sequelize otomatik  yönetir
 
-
-
+  
 });
+
+//*Syncronization
+sequelize.sync()
+
 
 /*-----------------------------------------*/
 const errorHandler = (err, req, res, next) => {
